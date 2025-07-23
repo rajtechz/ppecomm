@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Define custom color variables */
+:root {
+  --primary-color: #22A3A4;
+  --dark-color: #333333;
+  --light-color: #F0F0F0;
+  --accent-color: #89CACA;
+  --lightGray-color: #CAB2AE;
+  --lightred-color: #CB1048;
+  --batchColor-color: #ED4A6B;
+}
+
+/* Example usage for background or text */
+.bg-primary {
+  background-color: var(--primary-color);
+}
+.text-primary {
+  color: var(--primary-color);
+}
+
+.bg-dark {
+  background-color: var(--dark-color);
+}
+.text-dark {
+  color: var(--dark-color);
+}
+
+.bg-light {
+  background-color: var(--light-color);
+}
+.text-light {
+  color: var(--light-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+.text-accent {
+  color: var(--accent-color);
+}
+
+
+/* Hide scrollbar globally */
+::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
