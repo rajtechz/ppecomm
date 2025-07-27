@@ -5,17 +5,17 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 // Desktop banners
-import banner11 from "../assets/banner/banner11.webp";
-import banner21 from "../assets/banner/banner21.webp";
-import banner31 from "../assets/banner/banner31.webp";
-import banner41 from "../assets/banner/banner41.webp";
-import banner51 from "../assets/banner/banner51.webp";
+import banner11 from "../../assets/banner/banner11.webp";
+import banner21 from "../../assets/banner/banner21.webp";
+import banner31 from "../../assets/banner/banner31.webp";
+import banner41 from "../../assets/banner/banner41.webp";
+import banner51 from "../../assets/banner/banner51.webp";
 
 // Mobile banners
-import mobileBanner1 from "../assets/banner/MOBILE-BANNER-1.webp";
-import mobileBanner2 from "../assets/banner/Mobile-Banner.webp";
-import mobileBanner3 from "../assets/banner/MOBILE-BANNER3.webp";
-import mobileBanner4 from "../assets/banner/MOBILE-BANNER4.webp";
+import mobileBanner1 from "../../assets/banner/MOBILE-BANNER-1.webp";
+import mobileBanner2 from "../../assets/banner/Mobile-Banner.webp";
+import mobileBanner3 from "../../assets/banner/MOBILE-BANNER3.webp";
+import mobileBanner4 from "../../assets/banner/MOBILE-BANNER4.webp";
 
 // Arrays of images
 const desktopBanners = [banner11, banner21, banner31, banner41, banner51];
@@ -34,7 +34,7 @@ function Banner() {
           className="w-full h-full rounded-2xl"
         >
           {desktopBanners.map((banner, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} >
               <img
                 src={banner}
                 alt={`desktop-banner-${index}`}

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { ArrowRight, ArrowLeft, ArrowUpRight } from "lucide-react";
+import AddToBagButton from "../AddToBagButton";
 import seasion1 from "../../assets/seasionTopPicks/seasion1.webp";
 import seasion2 from "../../assets/seasionTopPicks/seasion2.webp";
 import seasion3 from "../../assets/seasionTopPicks/seasion3.webp";
@@ -120,9 +121,10 @@ function SeasionTopCard() {
                   )}
                 </p>
                 <p className="text-sm text-gray-700 mt-1">{item.title}</p>
-                <button className="w-full cursor-pointer mt-3 border border-gray-400 text-black font-semibold py-2 rounded-md text-sm hover:bg-gray-100">
-                  Add to Bag
-                </button>
+                <AddToBagButton
+                  onClick={() => console.log('Add to bag:', item.title)}
+                  className="mt-3"
+                />
               </div>
             </div>
           ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "../components/Banner";
+import Banner from "../components/banner/Banner";
 import FeaturedProducts from "./FeaturedProducts";
 import OurGurenty from "../components/OurGurenty/OurGurenty";
 import Cards from "../components/cardsection/Cards";

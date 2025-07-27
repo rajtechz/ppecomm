@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Virat1 from "../../assets/cardImage/Virat1.webp";
 import Virat2 from "../../assets/cardImage/Virat2.webp";
@@ -7,6 +7,14 @@ import Virat4 from "../../assets/cardImage/Virat4.webp";
 import Virat5 from "../../assets/cardImage/Virat5.webp";
 import Virat6 from "../../assets/cardImage/Virat6.webp";
 import Virat7 from "../../assets/cardImage/Virat7.webp";
+import Modal from "../modal/Modal";
+
+import tshirtwomen1 from "../../assets/t-shirtwomen1.JPG";
+import tshirtwomen2 from "../../assets/t-shirtwomen2.JPG";
+import tshirtwomen3 from "../../assets/t-shirtwomen3.jpg";
+import tshirtwomen4 from "../../assets/t-shirtwomen4.JPG";
+import { useNavigate } from "react-router-dom";
+
 
 const viratData = [
   {
@@ -75,7 +83,9 @@ const viratData = [
 ];
 
 function Cards() {
+  const navigate =useNavigate()
   const scrollRef = useRef();
+ const [isOpen, setIsOpen] = useState(false);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -87,6 +97,16 @@ function Cards() {
     }
   };
 
+  const images = [tshirtwomen1, tshirtwomen2, tshirtwomen3, tshirtwomen4];
+  const product = {
+    title: "Casual Anti Fit Jeans",
+    color: "Green",
+    rating: 4.0,
+    originalPrice: 2399,
+    discountedPrice: 1559,
+    discountPercent: 35,
+    sizes: ["S", "M", "L", "XL", "2XL"],
+  };
   return (
     <div className="relative px-6 py-8">
       <h2 className="text-2xl font-bold mb-6 text-center">
@@ -118,11 +138,27 @@ function Cards() {
               key={item.id}
               className="p-2  min-w-[290px] max-w-[260px] bg-[#CAB2AE] rounded-xl shadow-md border  border-gray-400 hover:shadow-xl transition-shadow duration-300"
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-[360px] object-cover rounded-xl"
-              />
+              
+              <div className="relative w-full h-[360px]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+
+                {/* Animated Dot 1 */}
+                <div className="absolute top-[40%] left-[55%] flex items-center justify-center">
+                  <span className="absolute w-4 h-4 rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+                  <span className="relative w-3 h-3 rounded-full bg-blue-600 border-2 border-white"></span>
+                </div>
+
+                {/* Animated Dot 2 */}
+                <div className="absolute bottom-[15%] left-[45%] flex items-center justify-center">
+                  <span className="absolute w-4 h-4 rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+                  <span className="relative w-3 h-3 rounded-full bg-blue-600 border-2 border-white"></span>
+                </div>
+              </div>
+
 
               <div className="p-4 space-y-2 bg-white rounded-xl mt-2">
                 <div className="flex items-center space-x-2 ">
@@ -147,10 +183,10 @@ function Cards() {
                 </div>
 
                 <div className="flex items-center justify-between gap-2 mt-4">
-                  <button className="flex-1 cursor-pointer h-10 border border-gray-400  font-semibold rounded-md flex items-center justify-between px-3 transition">
+                  <button onClick={() => setIsOpen(true)} className="flex-1 cursor-pointer h-10 border border-gray-400  font-semibold rounded-md flex items-center justify-between px-3 transition">
                     QUICK VIEW
                   </button>
-                  <button className="h-10 aspect-square  cursor-pointer border border-gray-400 text-[#CB1048] rounded-md flex items-center justify-center transition">
+                  <button onClick={()=>navigate("/productDetails")} className="h-10 aspect-square  cursor-pointer border border-gray-400 text-[#CB1048] rounded-md flex items-center justify-center transition">
                     <ArrowUpRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -159,6 +195,12 @@ function Cards() {
           ))}
         </div>
       </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        images={images}
+        product={product}
+      />
     </div>
   );
 }

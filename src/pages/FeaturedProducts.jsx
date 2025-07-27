@@ -13,7 +13,7 @@ import Modal from "../components/modal/Modal";
 import { useState } from "react";
 
 const FeaturedProducts = () => {
-      const [isOpen, setIsOpen] = useState(true); // Change to `false` by default
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleClick = () => {
     window.open("https://www.youtube.com/watch?v=YOUR_VIDEO_ID", "_blank");
@@ -94,7 +94,7 @@ const FeaturedProducts = () => {
         <div className="lg:container mx-auto px-4">
           <SectionTitle title="WEAR IT LIKE VIRAT" mb="mb-12" />
 
-<CardSection/>
+          <CardSection />
 
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -156,11 +156,10 @@ const FeaturedProducts = () => {
                     {Array.from({ length: 5 }, (_, i) => (
                       <span
                         key={i}
-                        className={`text-lg ${
-                          i < feature.rating
+                        className={`text-lg ${i < feature.rating
                             ? "text-yellow-400"
                             : "text-gray-300"
-                        }`}
+                          }`}
                       >
                         ★
                       </span>
@@ -214,7 +213,7 @@ const FeaturedProducts = () => {
           </button>
         </div>
       </section>
-        <Modal
+      <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         images={images}

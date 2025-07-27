@@ -39,7 +39,7 @@ function KdStyle() {
             <img
               src={banner}
               alt={`banner-${idx + 1}`}
-              className="w-full h-full sm:h-full object-cover rounded-tr-[50px] rounded-br-[50px]"
+              className="w-full h-full sm:h-full object-cover rounded-[20px]"
               style={{ objectPosition: "top" }}
             />
           </SwiperSlide>
