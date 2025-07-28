@@ -18,7 +18,7 @@ function RightPlace() {
               RIGHT PLACE.
             </h1>
             <p className="text-gray-600 text-base lg:text-lg mb-6 leading-relaxed">
-              Find how close you’re to going wrogn!
+              Find how close you’re to going KD Style!
             </p>
             <button className="bg-gray-900 w-full text-white px-6 py-2.5 rounded-lg text-base font-medium hover:bg-gray-800 transition-colors duration-200">
               See All Stores

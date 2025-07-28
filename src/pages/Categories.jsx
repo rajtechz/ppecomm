@@ -453,7 +453,7 @@ function Categories() {
         <div className="text-center mt-2 text-xs text-[var(--text-secondary)]">
           <span className="inline-flex items-center">
             <div className="w-3 h-3 border border-[var(--text-secondary)] rounded mr-1"></div>
-            wrogn.com
+            KD Style.com
           </span>
         </div>
       </div>

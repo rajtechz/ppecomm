@@ -1,12 +1,56 @@
-import React from "react";
-import { X, Trash2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Trash2, Minus, Plus, Clock, Gift, Truck, Shield, RotateCcw } from "lucide-react";
 
 const CartDrawer = ({ isOpen, onClose, cartItems }) => {
-  const totalMRP = cartItems.reduce((acc, item) => acc + item.price, 0);
-  const discount = cartItems.reduce((acc, item) => acc + item.discount, 0);
-  const couponDiscount = 263; // From Figma
-  const deliveryFee = 0; // Free delivery
-  const totalPayable = totalMRP - discount - couponDiscount + deliveryFee;
+  const [items, setItems] = useState(cartItems);
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 4,
+    minutes: 52,
+    seconds: 27
+  });
+
+  // Countdown timer effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime.seconds > 0) {
+          return { ...prevTime, seconds: prevTime.seconds - 1 };
+        } else if (prevTime.minutes > 0) {
+          return { ...prevTime, minutes: prevTime.minutes - 1, seconds: 59 };
+        } else if (prevTime.hours > 0) {
+          return { hours: prevTime.hours - 1, minutes: 59, seconds: 59 };
+        } else {
+          return { hours: 0, minutes: 0, seconds: 0 };
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Update quantity
+  const updateQuantity = (itemId, newQuantity) => {
+    if (newQuantity < 1) return;
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === itemId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  // Remove item
+  const removeItem = (itemId) => {
+    setItems(prevItems => prevItems.filter(item => item.id !== itemId));
+  };
+
+  // Calculate totals
+  const totalMRP = items.reduce((acc, item) => acc + (item.originalPrice * item.quantity), 0);
+  const totalDiscount = items.reduce((acc, item) => acc + ((item.originalPrice - item.price) * item.quantity), 0);
+  const couponDiscount = 263;
+  const deliveryFee = 0;
+  const totalPayable = totalMRP - totalDiscount - couponDiscount + deliveryFee;
+  const totalSavings = totalDiscount + couponDiscount;
+
   const paymentMethods = [
     {
       name: "Visa",
@@ -34,160 +78,229 @@ const CartDrawer = ({ isOpen, onClose, cartItems }) => {
     },
   ];
 
+  const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
 
   return (
     <div
-      className={`fixed top-0 right-0 w-full max-w-3xl h-full bg-white shadow-2xl z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
-        } flex flex-col`}
+      className={`fixed top-0 right-0 w-full max-w-2xl h-full bg-white shadow-2xl z-50 transform transition-transform duration-300 ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } flex flex-col`}
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-900">My Bag ({cartItems.length})</h2>
-        <X className="cursor-pointer text-gray-500 hover:text-gray-700" onClick={onClose} />
+      <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">My Bag ({items.length})</h2>
+          <p className="text-gray-600 text-sm">Items in your shopping bag</p>
+        </div>
+        <button 
+          onClick={onClose}
+          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+        >
+          <X className="w-5 h-5 text-gray-600" />
+        </button>
       </div>
 
       {/* Sale Timer */}
-      <div className="bg-green-100 text-green-800 text-sm font-medium p-2 text-center">
-        Sale ends in 04h : 52m : 27s
+      <div className="bg-green-100 text-green-800 p-4 flex items-center justify-center space-x-2">
+        <Clock className="w-4 h-4" />
+        <span className="font-semibold text-sm">
+          Sale ends in {String(timeLeft.hours).padStart(2, '0')}h : {String(timeLeft.minutes).padStart(2, '0')}m : {String(timeLeft.seconds).padStart(2, '0')}s
+        </span>
       </div>
 
       {/* Coupon Section */}
-      <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg mt-4 mx-4">
-        <div className="flex items-center justify-between mb-2">
-          <div>
-            <p className="text-green-600 font-semibold text-sm">Yay! You unlocked 10% OFF</p>
-            <div className="flex items-center gap-2 mt-1">
+      <div className="p-4 mx-4 mt-4 bg-purple-50 border border-purple-200 rounded-lg shadow-sm">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex-1">
+            <div className="flex items-center space-x-2 mb-2">
+              <Gift className="w-4 h-4 text-green-600" />
+              <p className="text-green-600 font-semibold text-sm">Yay! You unlocked 10% OFF</p>
+            </div>
+            <div className="flex items-center gap-2 mb-2">
               <span className="text-xs text-gray-600">₹2999</span>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-purple-600 h-2 rounded-full" style={{ width: "33%" }}></div>
+              <div className="flex-1 bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-purple-600 h-2 rounded-full transition-all duration-300" 
+                  style={{ width: "33%" }}
+                ></div>
               </div>
               <span className="text-xs text-gray-600">₹5999</span>
             </div>
-            <p className="text-xs text-green-600 mt-1">Unlocked</p>
+            <p className="text-xs text-green-600 font-medium">Unlocked</p>
           </div>
-          <button className="bg-purple-600 text-white text-sm px-4 py-1 rounded-lg cursor-pointer">Apply</button>
+          <button className="bg-purple-600 text-white text-sm px-6 py-2 rounded-lg cursor-pointer hover:bg-purple-700 transition-all duration-200 font-medium">
+            Apply
+          </button>
         </div>
-        <a href="#" className="text-xs text-purple-600 underline mt-2 block text-center">
+        <a href="#" className="text-xs text-purple-600 underline block text-center hover:text-purple-700 transition-colors duration-200">
           View/Apply More Coupons & Gift Cards
         </a>
       </div>
 
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {cartItems.map((item, idx) => (
-          <div key={idx} className="flex gap-4 border border-gray-200 rounded-lg p-3 relative bg-white">
-            <div className="relative">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-32 h-40 object-cover rounded-md border border-gray-300"
-              />
-              {item.exclusive && (
-                <div className="absolute bottom-0 w-full bg-pink-600 text-white text-xs text-center py-1 rounded-b-md font-semibold">
-                  EXCLUSIVE
-                </div>
-              )}
-            </div>
-
-            <div className="flex-1">
-              <h4 className="font-medium text-sm text-gray-900">{item.name}</h4>
-              <p className="text-gray-500 text-xs mt-1">Colour : {item.color}</p>
-
-              <p className="text-sm font-semibold mt-2 text-gray-900">
-                ₹{item.price}
-                <span className="line-through text-gray-500 text-xs ml-2">₹{item.originalPrice}</span>
-                <span className="text-green-600 text-xs ml-2">({item.discountPercentage}% OFF)</span>
-              </p>
-              <p>Placement Printed Oversized T-Shirt | Peach
-              </p>
-              <p>color : Red</p>
-              <div className="mt-3 flex items-center gap-3">
-                <select className="border border-gray-300 rounded px-2 py-1 text-sm text-gray-700">
-                  <option>{item.size}</option>
-                </select>
-
-                <div className="flex items-center border border-gray-300 rounded px-2 py-1">
-                  <button className="text-gray-600 text-sm font-bold px-1 cursor-pointer">-</button>
-                  <span className="mx-2 text-sm">{item.quantity}</span>
-                  <button className="text-gray-600 text-sm font-bold px-1 cursor-pointer">+</button>
-                </div>
-
-                <button className="ml-auto cursor-pointer">
-                  <Trash2 className="w-6 h-6 text-gray-500 hover:text-red-500" />
-                </button>
+        {items.map((item, idx) => (
+          <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex gap-4">
+              <div className="relative">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-32 h-40 object-cover rounded-lg border border-gray-300 shadow-sm"
+                />
+                {item.exclusive && (
+                  <div className="absolute bottom-0 w-full bg-pink-600 text-white text-xs text-center py-1 rounded-b-lg font-semibold">
+                    EXCLUSIVE
+                  </div>
+                )}
               </div>
 
-              {item.offerApplied && (
-                <div className="mt-2 text-green-600 text-sm font-medium">
-                  {item.offerCode} offer applied!
+              <div className="flex-1 space-y-3">
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">{item.name}</h4>
+                  <p className="text-gray-500 text-xs mt-1">Colour: {item.color}</p>
                 </div>
-              )}
+
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg font-bold text-gray-900">₹{item.price}</span>
+                    <span className="line-through text-gray-500 text-sm">₹{item.originalPrice}</span>
+                    <span className="text-green-600 text-xs font-semibold">({item.discountPercentage}% OFF)</span>
+                  </div>
+                  
+                  <p className="text-xs text-gray-500">Placement Printed Oversized T-Shirt | Peach</p>
+                  <p className="text-xs text-gray-500">Color: Red</p>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    {/* Size Selection */}
+                    <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      {sizeOptions.map(size => (
+                        <option key={size} value={size}>{size}</option>
+                      ))}
+                    </select>
+
+                    {/* Quantity Controls */}
+                    <div className="flex items-center border border-gray-300 rounded-lg px-2 py-1 bg-white">
+                      <button 
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="p-1 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span className="mx-3 text-sm font-medium text-gray-900 min-w-[20px] text-center">
+                        {item.quantity}
+                      </span>
+                      <button 
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="p-1 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => removeItem(item.id)}
+                    className="p-2 text-gray-500 hover:text-red-500 transition-colors duration-200 rounded-lg hover:bg-red-50"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {item.offerApplied && (
+                  <div className="flex items-center space-x-1 text-green-600 text-sm font-medium">
+                    <Gift className="w-4 h-4" />
+                    <span>{item.offerCode} offer applied!</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
 
         {/* Order Summary */}
-        <div className="space-y-3 text-sm mt-6">
-          <h3 className="font-semibold text-gray-900 text-base">Order summary</h3>
+        <div className="bg-gray-50 rounded-lg p-6 space-y-4 border border-gray-200">
+          <h3 className="font-bold text-gray-900 text-lg flex items-center space-x-2">
+            <span>Order Summary</span>
+          </h3>
 
-          <div className="flex justify-between">
-            <span className="text-gray-600">Total MRP (Incl. of Taxes)</span>
-            <span className="text-gray-900">₹{totalMRP}</span>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Total MRP (Incl. of Taxes)</span>
+              <span className="text-gray-900 font-medium">₹{totalMRP.toLocaleString()}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-gray-600">Discount on MRP</span>
+              <span className="text-green-600 font-medium">-₹{totalDiscount.toLocaleString()}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-gray-600">Coupon Discount</span>
+              <span className="text-green-600 font-medium">-₹{couponDiscount}</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-gray-600">Delivery Fee</span>
+              <span className="text-green-600 font-medium">FREE</span>
+            </div>
+
+            <div className="border-t border-gray-200 pt-3">
+              <div className="flex justify-between font-bold text-lg">
+                <span className="text-gray-900">Total Payable</span>
+                <span className="text-gray-900">₹{totalPayable.toLocaleString()}</span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-600">Discount on MRP</span>
-            <span className="text-green-600">-₹{discount}</span>
+          <div className="bg-green-100 text-green-800 p-3 rounded-lg text-center text-sm font-medium">
+            🎉 Yay! FREE delivery on this order!
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-600">Coupon Discount</span>
-            <span className="text-green-600">-₹{couponDiscount}</span>
+          <div className="flex justify-between text-xs text-gray-500 pt-3 border-t border-gray-200">
+            <div className="flex items-center space-x-1">
+              <Truck className="w-3 h-3" />
+              <span>Free Delivery Over ₹799</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <RotateCcw className="w-3 h-3" />
+              <span>7 Days Easy Return</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Shield className="w-3 h-3" />
+              <span>COD Available</span>
+            </div>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-600">Delivery Fee</span>
-            <span className="text-green-600">FREE</span>
-          </div>
-
-          <div className="flex justify-between font-semibold text-base">
-            <span className="text-gray-900">Total Payable</span>
-            <span className="text-gray-900">₹{totalPayable}</span>
-          </div>
-
-          <div className="text-green-600 text-center bg-green-100 p-2 rounded text-sm">
-            Yay! FREE delivery on this order!
-          </div>
-
-          <div className="flex justify-between text-xs text-gray-500 pt-2 border-t mt-4">
-            <span>Free Delivery Over ₹799</span>
-            <span>7 Days Easy Return</span>
-            <span>COD Available</span>
-          </div>
-
-          <div className="flex justify-center gap-2 mt-3 flex-wrap">
+          <div className="flex justify-center gap-3 mt-4 flex-wrap">
             {paymentMethods.map((method, index) => (
               <img
                 key={index}
                 src={method?.imageUrl}
                 alt={method?.name}
-                className="h-6 object-contain"
+                className="h-6 object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
                 title={method?.name}
               />
             ))}
           </div>
-
         </div>
       </div>
 
-
       {/* Fixed Savings and Proceed to Buy */}
-      <div className="bg-green-600 text-white text-center p-2 text-sm rounded-t-xl">
-        You are saving ₹1630 on this order
+      <div className="bg-green-600 text-white text-center p-4 rounded-t-xl">
+        <p className="font-semibold text-sm">You are saving ₹{totalSavings.toLocaleString()} on this order</p>
       </div>
-      <div className="p-4  text-white text-center">
-        <p className="text-sm">₹{totalPayable} <span className="line-through text-gray-300">₹3,998</span></p>
-        <button className="w-full bg-black text-white py-2 rounded mt-2 text-sm font-semibold cursor-pointer">Proceed to Buy</button>
+      
+      <div className="p-6 bg-white border-t border-gray-200">
+        <div className="text-center mb-4">
+          <p className="text-lg font-bold text-gray-900">₹{totalPayable.toLocaleString()}</p>
+          <p className="text-sm text-gray-500 line-through">₹3,998</p>
+        </div>
+        <button className="w-full bg-black text-white py-4 rounded-lg text-base font-bold cursor-pointer hover:bg-gray-900 transition-all duration-200 transform hover:scale-[1.02]">
+          Proceed to Buy
+        </button>
       </div>
     </div>
   );

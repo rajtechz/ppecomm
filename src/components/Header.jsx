@@ -154,7 +154,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative" style={{ zIndex: 1000 }}>
+    <div className="relative" style={{ zIndex: 10 }}>
       {/* Top Bar - Enhanced Design with Custom Colors */}
       <div
         className="hidden lg:block transition-all duration-500 ease-in-out"

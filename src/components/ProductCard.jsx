@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { formatPrice } from '../utils/formatPrice';
 import AddToBagButton from './AddToBagButton';
 
@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 
 const ProductCard = ({ product, viewMode }) => {
     const { name, price, originalPrice, discount, bestPrice, image, isNewDrop, color } = product;
+    const [isWishlisted, setIsWishlisted] = useState(false);
 
     // Create multiple images for carousel (you can add more images to your product data)
     const productImages = [
@@ -21,6 +22,13 @@ const ProductCard = ({ product, viewMode }) => {
         image,
         image,
     ];
+
+    const handleWishlistClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsWishlisted(!isWishlisted);
+        console.log('Wishlist toggled for:', name);
+    };
 
     if (viewMode === 'list') {
         return (
@@ -95,19 +103,33 @@ const ProductCard = ({ product, viewMode }) => {
                 </Swiper>
 
                 {/* Navigation Arrows - using root color variables */}
-                <button className={`swiper-button-prev-${product.id} absolute left-2 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 bg-[var(--white-color)]/90 hover:bg-[var(--white-color)] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md border border-[var(--border-light)] cursor-pointer`}>
+                <button className={`swiper-button-prev-${product.id} absolute left-2 top-1/2 transform -translate-y-1/2 z-5 w-8 h-8 bg-[var(--white-color)]/90 hover:bg-[var(--white-color)] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md border border-[var(--border-light)] cursor-pointer`}>
                     <ChevronLeft className="w-4 h-4 text-[var(--text-primary)]" />
                 </button>
-                <button className={`swiper-button-next-${product.id} absolute right-2 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 bg-[var(--white-color)]/90 hover:bg-[var(--white-color)] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md border border-[var(--border-light)] cursor-pointer`}>
+                <button className={`swiper-button-next-${product.id} absolute right-2 top-1/2 transform -translate-y-1/2 z-5 w-8 h-8 bg-[var(--white-color)]/90 hover:bg-[var(--white-color)] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md border border-[var(--border-light)] cursor-pointer`}>
                     <ChevronRight className="w-4 h-4 text-[var(--text-primary)]" />
                 </button>
 
                 {/* NEW DROP Badge */}
                 {isNewDrop && (
-                    <div className="absolute top-3 left-3 bg-[var(--primary-color)] text-[var(--text-inverse)] text-xs px-2 py-1 rounded font-medium z-20">
+                    <div className="absolute top-3 left-3 bg-[var(--primary-color)] text-[var(--text-inverse)] text-xs px-2 py-1 rounded font-medium z-5">
                         NEW DROP
                     </div>
                 )}
+
+                {/* Wishlist Button - Appears on hover */}
+                <button
+                    onClick={handleWishlistClick}
+                    className="absolute top-3 right-3 bg-white border border-gray-200 rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md z-5 hover:shadow-lg flex items-center space-x-2"
+                >
+                    <Heart 
+                        size={16} 
+                        className={`${isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'}`}
+                    />
+                    <span className="text-xs font-medium text-gray-700 uppercase">
+                        Wishlist
+                    </span>
+                </button>
             </div>
 
             {/* Product Info - using root color variables */}

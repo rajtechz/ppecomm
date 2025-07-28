@@ -13,6 +13,7 @@ import CollectionPage from "../pages/CollectionPage";
 import Men from "../pages/Men";
 import Women from "../pages/Women";
 import Categories from "../pages/Categories";
+import Account from "../pages/Account";
 function AppRoutes() {
   return (
     <Routes>
@@ -26,6 +27,7 @@ function AppRoutes() {
         <Route path="/pages" element={<Pages />} />
         <Route path="/about" element={<About />} />
         <Route path="/productDetails" element={<ProductDetails />} />
+        <Route path="/account" element={<Account />} />
         <Route
           path="/collections/2-bottomwear-2799"
           element={<CollectionPage />}
