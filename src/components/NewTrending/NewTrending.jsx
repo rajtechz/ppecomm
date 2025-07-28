@@ -29,7 +29,7 @@ function NewTrending() {
       />
 
       {/* Overlay with content (unchanged, you can modify) */}
-      <div className="relative z-8 h-full w-full bg-black/40 px-6 py-8 md:px-12 md:py-14 flex flex-col justify-center">
+      <div className="relative z-10 h-full w-full bg-black/40 px-6 py-8 md:px-12 md:py-14 flex flex-col justify-center">
         <div className="flex flex-col md:flex-row justify-between items-center h-full gap-8">
           {/* Title & Button */}
           <div className="text-white md:w-[40%] text-center md:text-left">

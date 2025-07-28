@@ -122,7 +122,7 @@ function SeasionTopCard() {
                 </p>
                 <p className="text-sm text-gray-700 mt-1">{item.title}</p>
                 <AddToBagButton
-                  onClick={() => console.log('Add to Cart:', item.title)}
+                  onClick={() => console.log('Add to bag:', item.title)}
                   className="mt-3"
                 />
               </div>

@@ -37,7 +37,7 @@ export const verifyOTP = createAsyncThunk(
             id: 1,
             name: "Demo User",
             mobile: mobile,
-            email: "demo@KD Style.com",
+            email: "demo@wrogn.com",
           },
           token: "demo-token-123",
         };
@@ -65,8 +65,6 @@ const authSlice = createSlice({
     otp: "",
     otpSent: false,
     otpLoading: false,
-    // Terms acceptance
-    acceptTerms: false,
   },
   reducers: {
     logout: (state) => {
@@ -77,7 +75,6 @@ const authSlice = createSlice({
       state.mobile = "";
       state.otp = "";
       state.otpSent = false;
-      state.acceptTerms = false;
     },
     showLoginModal: (state) => {
       state.showLoginModal = true;
@@ -89,16 +86,12 @@ const authSlice = createSlice({
       state.mobile = "";
       state.otp = "";
       state.otpSent = false;
-      state.acceptTerms = false;
     },
     setMobile: (state, action) => {
       state.mobile = action.payload;
     },
     setOTP: (state, action) => {
       state.otp = action.payload;
-    },
-    setAcceptTerms: (state, action) => {
-      state.acceptTerms = action.payload;
     },
     clearError: (state) => {
       state.error = null;
@@ -149,7 +142,6 @@ export const {
   hideLoginModal,
   setMobile,
   setOTP,
-  setAcceptTerms,
   clearError,
 } = authSlice.actions;
 

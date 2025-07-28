@@ -147,11 +147,13 @@ const Header = () => {
       setIsDropdownOpen(false);
     } else {
       // Map routes to account page with appropriate tabs
-      let actualRoute = route;
+      let actualRoute;
       if (route === '/profile') {
-        actualRoute = '/account?tab=profile';
+        actualRoute = '/account';
       } else if (route === '/orders') {
         actualRoute = '/account?tab=orders';
+      } else {
+        actualRoute = route;
       }
       navigate(actualRoute);
       setIsDropdownOpen(false);
@@ -159,7 +161,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative" style={{ zIndex: 10 }}>
+    <div className="relative" style={{ zIndex: 1000 }}>
       {/* Top Bar - Enhanced Design with Custom Colors */}
       <div
         className="hidden lg:block transition-all duration-500 ease-in-out"
@@ -389,13 +391,10 @@ const Header = () => {
               {/* Wishlist Icon */}
               <Link
                 to="/wishlist"
-                className="relative p-2 rounded-lg transition-colors duration-200 group"
+                className="p-2 rounded-lg transition-colors duration-200 group"
                 style={{ backgroundColor: 'var(--gray-100)' }}
               >
                 <Heart className="group-hover:opacity-80" style={{ color: 'var(--text-primary)' }} size={20} />
-                <span className="absolute -top-1 -right-1 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium animate-pulse" style={{ backgroundColor: 'var(--primary-color)', color: 'var(--white-color)' }}>
-                  6
-                </span>
               </Link>
 
               {/* User Profile Dropdown - Hidden on Mobile */}
@@ -715,19 +714,6 @@ const Header = () => {
                     <User size={20} className="mr-3" />
                     My Account
                   </button>
-                  
-                  <Link
-                    to="/wishlist"
-                    onClick={closeMenu}
-                    className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200"
-                    style={{ color: 'var(--text-primary)' }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--gray-100)'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                  >
-                    <Heart size={20} className="mr-3" />
-                    Wishlist
-                  </Link>
-                  
                   {isAuthenticated ? (
                     <button
                       onClick={() => {

@@ -116,7 +116,7 @@ const FeaturedProducts = () => {
                     </div>
 
                     <button
-                      className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-5"
+                      className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-10"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
