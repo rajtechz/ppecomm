@@ -14,6 +14,8 @@ import Men from "../pages/Men";
 import Women from "../pages/Women";
 import Categories from "../pages/Categories";
 import Account from "../pages/Account";
+import Wishlist from "../pages/Wishlist";
+
 function AppRoutes() {
   return (
     <Routes>
@@ -28,6 +30,7 @@ function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/productDetails" element={<ProductDetails />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route
           path="/collections/2-bottomwear-2799"
           element={<CollectionPage />}

@@ -61,9 +61,9 @@ const ProductCard = ({ product, viewMode }) => {
                         <p className="text-xs text-[var(--text-secondary)]">Best price ₹{formatPrice(bestPrice)}</p>
                     </div>
 
-                    {/* Add to Bag Button */}
+                    {/* Add to Cart Button */}
                     <AddToBagButton
-                        onClick={() => console.log('Add to bag:', name)}
+                        onClick={() => console.log('Add to Cart:', name)}
                         className="px-4 py-2"
                         fullWidth={false}
                     />
@@ -147,9 +147,9 @@ const ProductCard = ({ product, viewMode }) => {
                 {/* Product Name */}
                 <h3 className="text-sm font-medium text-[var(--text-primary)] leading-tight">{name}</h3>
 
-                {/* Add to Bag Button */}
+                {/* Add to Cart Button */}
                 <AddToBagButton
-                    onClick={() => console.log('Add to bag:', name)}
+                    onClick={() => console.log('Add to Cart:', name)}
                     className="mt-3"
                 />
             </div>

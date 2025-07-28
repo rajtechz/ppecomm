@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose, images, product }) => {
         <div className="relative bg-white w-full max-w-6xl rounded-lg shadow-xl flex flex-col h-[90vh] overflow-hidden">
           {/* Header: Fixed */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--light-color)] bg-white z-10">
-            <h2 className="text-xl font-semibold">Add to Bag</h2>
+            <h2 className="text-xl font-semibold">Add to Cart</h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-700 text-xl cursor-pointer"
@@ -114,10 +114,10 @@ const Modal = ({ isOpen, onClose, images, product }) => {
                 </div>
               </div>
 
-              {/* Add to Bag Button */}
+              {/* Add to Cart Button */}
               <div className="p-6 border-t border-gray-200 bg-white">
                 <AddToBagButton
-                  onClick={() => console.log('Add to bag from modal:', product.title)}
+                  onClick={() => console.log('Add to Cart from modal:', product.title)}
                   disabled={!selectedSize}
                 />
               </div>
@@ -129,7 +129,7 @@ const Modal = ({ isOpen, onClose, images, product }) => {
 
       <div className="lg:hidden fixed inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-xl p-4 max-h-[90vh] overflow-y-auto z-50">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Add to Bag</h2>
+          <h2 className="text-lg font-semibold">Add to Cart</h2>
           <button onClick={onClose} className="text-gray-600 text-xl">
             &times;
           </button>
@@ -229,7 +229,7 @@ const Modal = ({ isOpen, onClose, images, product }) => {
         </div>
 
         <AddToBagButton
-          onClick={() => console.log('Add to bag from mobile modal with size:', selectedMobileSize)}
+          onClick={() => console.log('Add to Cart from mobile modal with size:', selectedMobileSize)}
           disabled={!selectedMobileSize}
           className="rounded-xl"
         />

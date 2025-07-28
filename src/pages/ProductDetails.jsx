@@ -144,9 +144,9 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          {/* Add to Bag */}
+          {/* Add to Cart */}
           <AddToBagButton
-            onClick={() => console.log('Add to bag with size:', selectedSize)}
+            onClick={() => console.log('Add to Cart with size:', selectedSize)}
             disabled={!selectedSize}
           />
 
@@ -281,10 +281,10 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Add to Bag */}
+            {/* Add to Cart */}
             <div>
               <AddToBagButton
-                onClick={() => console.log('Add to bag with size:', selectedSize)}
+                onClick={() => console.log('Add to Cart with size:', selectedSize)}
                 disabled={!selectedSize}
               />
             </div>

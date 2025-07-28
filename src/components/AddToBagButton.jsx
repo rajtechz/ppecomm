@@ -1,11 +1,12 @@
 import React from 'react';
+import { ShoppingCart } from 'lucide-react';
 
 const AddToBagButton = ({
     onClick,
     disabled = false,
     loading = false,
     className = "",
-    children = "Add to Bag",
+    children = "Add to Cart",
     fullWidth = true
 }) => {
     return (
@@ -33,7 +34,10 @@ const AddToBagButton = ({
                     <span>Adding...</span>
                 </div>
             ) : (
-                children
+                <div className="flex items-center justify-center gap-2">
+                    <ShoppingCart size={16} />
+                    {children}
+                </div>
             )}
         </button>
     );
