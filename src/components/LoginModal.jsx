@@ -72,9 +72,11 @@ const LoginModal = () => {
         <div className="fixed inset-0 z-[99999999] flex items-center justify-center p-4">
             {/* Backdrop - Much More Transparent */}
             <div
-                className="absolute inset-0 bg-black bg-opacity-10"
-                onClick={handleClose}
-            />
+  style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}
+  className="absolute inset-0"
+  onClick={handleClose}
+/>
+
 
             {/* Modal - Enhanced Shadow and Border */}
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden border border-gray-200">

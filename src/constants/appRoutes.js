@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
-import Account from "../pages/Account";
 import UserLayout from "../layouts/UserLayout";
 import Shop from "../pages/Shop";
 import Product from "../pages/Product";
@@ -14,6 +13,7 @@ import CollectionPage from "../pages/CollectionPage";
 import Men from "../pages/Men";
 import Women from "../pages/Women";
 import Categories from "../pages/Categories";
+import Account from "../pages/Account";
 
 function AppRoutes() {
   return (
@@ -28,6 +28,7 @@ function AppRoutes() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/pages" element={<Pages />} />
         <Route path="/about" element={<About />} />
+         <Route path="/account" element={<Account />} />
         <Route path="/productDetails" element={<ProductDetails />} />
         <Route
           path="/collections/2-bottomwear-2799"
@@ -36,7 +37,7 @@ function AppRoutes() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/account" element={<Account />} />
+       
       </Route>
     </Routes>
   );

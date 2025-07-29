@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, images, product }) => {
 
   return (
     <>
-      <div className="hidden lg:flex fixed inset-0 z-50 items-center justify-center bg-black/50 p-4">
+      <div className="hidden lg:flex fixed inset-0 z-101 items-center justify-center bg-black/50 p-4">
         <div className="relative bg-white w-full max-w-6xl rounded-lg shadow-xl flex flex-col h-[90vh] overflow-hidden">
           {/* Header: Fixed */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--light-color)] bg-white z-10">

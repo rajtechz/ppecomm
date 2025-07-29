@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
+import Account from "../pages/Account";
+import Wishlist from "../pages/Wishlist";
 import UserLayout from "../layouts/UserLayout";
 import Shop from "../pages/Shop";
 import Product from "../pages/Product";
@@ -34,6 +36,8 @@ function AppRoutes() {
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Route>
     </Routes>
   );

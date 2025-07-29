@@ -28,6 +28,7 @@ import shirtwomen44 from "../assets/shirtwomen44.jpg"
 const Header = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { items: wishlistItems } = useSelector((state) => state.wishlist);
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -146,15 +147,28 @@ const Header = () => {
       dispatch(showLoginModal());
       setIsDropdownOpen(false);
     } else {
-      // Map profile route to account page
-      const actualRoute = route === '/profile' ? '/account' : route;
+      // Map routes to account page with appropriate tabs
+      let actualRoute;
+      if (route === '/profile') {
+        actualRoute = '/account';
+      } else if (route === '/orders') {
+        actualRoute = '/account?tab=orders';
+      } else {
+        actualRoute = route;
+      }
       navigate(actualRoute);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setIsDropdownOpen(false);
     }
   };
 
+  const handleNavigation = (route) => {
+    navigate(route);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="relative" style={{ zIndex: 1000 }}>
+    <div className="relative" style={{ zIndex: 100 }}>
       {/* Top Bar - Enhanced Design with Custom Colors */}
       <div
         className="hidden lg:block transition-all duration-500 ease-in-out"
@@ -218,111 +232,41 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8 ml-12">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive
-                    ? ""
-                    : "hover:opacity-80"
-                  }`
-                }
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                })}
+              <button
+                onClick={() => handleNavigation('/')}
+                className="relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    Home
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-              <NavLink
-                to="/men"
-                className={({ isActive }) =>
-                  `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive
-                    ? ""
-                    : "hover:opacity-80"
-                  }`
-                }
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                })}
+                Home
+              </button>
+              <button
+                onClick={() => handleNavigation('/men')}
+                className="relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    Men
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-              <NavLink
-                to="/women"
-                className={({ isActive }) =>
-                  `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive
-                    ? ""
-                    : "hover:opacity-80"
-                  }`
-                }
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                })}
+                Men
+              </button>
+              <button
+                onClick={() => handleNavigation('/women')}
+                className="relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    Women
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-              <NavLink
-                to="/shop"
-                className={({ isActive }) =>
-                  `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive
-                    ? ""
-                    : "hover:opacity-80"
-                  }`
-                }
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                })}
+                Women
+              </button>
+              <button
+                onClick={() => handleNavigation('/shop')}
+                className="relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    Shop
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-              <NavLink
-                to="/allproduct"
-                className={({ isActive }) =>
-                  `relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive
-                    ? ""
-                    : "hover:opacity-80"
-                  }`
-                }
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                })}
+                Shop
+              </button>
+              <button
+                onClick={() => handleNavigation('/allproduct')}
+                className="relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:opacity-80"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    All Products
-                    {isActive && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    )}
-                  </>
-                )}
-              </NavLink>
+                All Products
+              </button>
             </nav>
 
             {/* Search Bar - Desktop */}
@@ -384,10 +328,15 @@ const Header = () => {
               {/* Wishlist Icon */}
               <Link
                 to="/wishlist"
-                className="p-2 rounded-lg transition-colors duration-200 group"
+                className="p-2 rounded-lg transition-colors duration-200 group relative"
                 style={{ backgroundColor: 'var(--gray-100)' }}
               >
                 <Heart className="group-hover:opacity-80" style={{ color: 'var(--text-primary)' }} size={20} />
+                {wishlistItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium animate-pulse" style={{ backgroundColor: 'var(--error-color)', color: 'var(--white-color)' }}>
+                    {wishlistItems.length}
+                  </span>
+                )}
               </Link>
 
               {/* User Profile Dropdown - Hidden on Mobile */}
@@ -578,94 +527,64 @@ const Header = () => {
               <nav className="flex-1 p-4">
                 <ul className="space-y-2">
                   <li>
-                    <NavLink
-                      to="/"
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive
-                          ? ""
-                          : "hover:opacity-80"
-                        }`
-                      }
-                      style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'var(--accent-light)' : 'transparent',
-                        color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                      })}
+                    <button
+                      onClick={() => {
+                        handleNavigation('/');
+                        closeMenu();
+                      }}
+                      className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:opacity-80"
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       Home
-                    </NavLink>
+                    </button>
                   </li>
                   <li>
-                    <NavLink
-                      to="/men"
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive
-                          ? ""
-                          : "hover:opacity-80"
-                        }`
-                      }
-                      style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'var(--accent-light)' : 'transparent',
-                        color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                      })}
+                    <button
+                      onClick={() => {
+                        handleNavigation('/men');
+                        closeMenu();
+                      }}
+                      className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:opacity-80"
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       Men
-                    </NavLink>
+                    </button>
                   </li>
                   <li>
-                    <NavLink
-                      to="/women"
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive
-                          ? ""
-                          : "hover:opacity-80"
-                        }`
-                      }
-                      style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'var(--accent-light)' : 'transparent',
-                        color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                      })}
+                    <button
+                      onClick={() => {
+                        handleNavigation('/women');
+                        closeMenu();
+                      }}
+                      className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:opacity-80"
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       Women
-                    </NavLink>
+                    </button>
                   </li>
                   <li>
-                    <NavLink
-                      to="/shop"
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive
-                          ? ""
-                          : "hover:opacity-80"
-                        }`
-                      }
-                      style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'var(--accent-light)' : 'transparent',
-                        color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                      })}
+                    <button
+                      onClick={() => {
+                        handleNavigation('/shop');
+                        closeMenu();
+                      }}
+                      className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:opacity-80"
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       Shop
-                    </NavLink>
+                    </button>
                   </li>
                   <li>
-                    <NavLink
-                      to="/allproduct"
-                      onClick={closeMenu}
-                      className={({ isActive }) =>
-                        `flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 ${isActive
-                          ? ""
-                          : "hover:opacity-80"
-                        }`
-                      }
-                      style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'var(--accent-light)' : 'transparent',
-                        color: isActive ? 'var(--primary-color)' : 'var(--text-primary)'
-                      })}
+                    <button
+                      onClick={() => {
+                        handleNavigation('/allproduct');
+                        closeMenu();
+                      }}
+                      className="flex items-center w-full px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 hover:opacity-80"
+                      style={{ color: 'var(--text-primary)' }}
                     >
                       All Products
-                    </NavLink>
+                    </button>
                   </li>
                 </ul>
               </nav>
@@ -695,7 +614,7 @@ const Header = () => {
                       if (!isAuthenticated) {
                         dispatch(showLoginModal());
                       } else {
-                        navigate('/account');
+                        handleNavigation('/account');
                       }
                       closeMenu();
                     }}

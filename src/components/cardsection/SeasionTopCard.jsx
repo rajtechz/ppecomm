@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft, ArrowUpRight } from "lucide-react";
 import AddToBagButton from "../AddToBagButton";
 import seasion1 from "../../assets/seasionTopPicks/seasion1.webp";
@@ -58,6 +59,7 @@ const cards = [
 ];
 
 function SeasionTopCard() {
+  const navigate = useNavigate();
   const scrollRef = useRef(null);
 
   const scroll = (dir) => {
@@ -67,6 +69,11 @@ function SeasionTopCard() {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleCardClick = () => {
+    navigate('/productDetails');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -89,7 +96,8 @@ function SeasionTopCard() {
           {cards.map((item, idx) => (
             <div
               key={idx}
-              className="min-w-[220px] sm:min-w-[240px] max-w-[250px] bg-white rounded-lg  p-2 flex-shrink-0"
+              className="min-w-[220px] sm:min-w-[240px] max-w-[250px] bg-white rounded-lg p-2 flex-shrink-0 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+              onClick={handleCardClick}
             >
               <div className="relative">
                 <img
@@ -130,7 +138,10 @@ function SeasionTopCard() {
           ))}
 
           {/* View All Card */}
-          <div className="min-w-[220px] cursor-pointer sm:min-w-[240px] max-w-[250px] flex flex-col items-center justify-center border border-gray-300 rounded-lg p-6 text-center hover:shadow-md transition">
+          <div 
+            className="min-w-[220px] cursor-pointer sm:min-w-[240px] max-w-[250px] flex flex-col items-center justify-center border border-gray-300 rounded-lg p-6 text-center hover:shadow-md transition"
+            onClick={handleCardClick}
+          >
             <img
               src="https://w7.pngwing.com/pngs/170/541/png-transparent-logo-symbol-brand-trademark-logo-angle-text-service-thumbnail.png"
               alt="logo"

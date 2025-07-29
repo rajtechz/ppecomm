@@ -34,23 +34,19 @@ const CartDrawer = ({ isOpen, onClose, cartItems }) => {
     },
   ];
 
-
   return (
     <div
-      className={`fixed top-0 right-0 w-full max-w-3xl h-full bg-white shadow-2xl z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
-        } flex flex-col`}
-    >
+      className={`fixed top-0 right-0 w-full max-w-2xl h-full bg-white shadow-2xl z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+        } flex flex-col`}>
       {/* Header */}
       <div className="p-4 border-b border-gray-200 flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-900">My Bag ({cartItems.length})</h2>
         <X className="cursor-pointer text-gray-500 hover:text-gray-700" onClick={onClose} />
       </div>
-
       {/* Sale Timer */}
       <div className="bg-green-100 text-green-800 text-sm font-medium p-2 text-center">
         Sale ends in 04h : 52m : 27s
       </div>
-
       {/* Coupon Section */}
       <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg mt-4 mx-4">
         <div className="flex items-center justify-between mb-2">
@@ -71,7 +67,6 @@ const CartDrawer = ({ isOpen, onClose, cartItems }) => {
           View/Apply More Coupons & Gift Cards
         </a>
       </div>
-
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {cartItems.map((item, idx) => (
@@ -88,11 +83,9 @@ const CartDrawer = ({ isOpen, onClose, cartItems }) => {
                 </div>
               )}
             </div>
-
             <div className="flex-1">
               <h4 className="font-medium text-sm text-gray-900">{item.name}</h4>
               <p className="text-gray-500 text-xs mt-1">Colour : {item.color}</p>
-
               <p className="text-sm font-semibold mt-2 text-gray-900">
                 ₹{item.price}
                 <span className="line-through text-gray-500 text-xs ml-2">₹{item.originalPrice}</span>

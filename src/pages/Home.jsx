@@ -14,6 +14,7 @@ function Home() {
   return (
     <>
       <Banner />
+      
       <OurGurenty />
       <Cards />
       <MessageVideo />
