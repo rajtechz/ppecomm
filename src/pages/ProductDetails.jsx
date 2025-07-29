@@ -47,12 +47,12 @@ const ProductDetails = () => {
               {images.map((src, idx) => (
                 <div
                   key={idx}
-                  className="relative overflow-hidden rounded-md group w-full h-48 cursor-zoom-in"
+                  className="relative overflow-hidden rounded-md group w-full h-auto cursor-zoom-in"
                 >
                   <img
                     src={src}
                     alt={`product-${idx}`}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                    className="w-full h-auto object-contain transition-transform duration-300 ease-in-out group-hover:scale-110"
                     style={{
                       transformOrigin: "center center",
                     }}
@@ -72,12 +72,12 @@ const ProductDetails = () => {
             </div>
             <div className="flex flex-wrap gap-2 mb-4">
               {images.map((src, idx) => (
-                <img
-                  key={idx}
-                  src={src}
-                  alt={`thumbnail-${idx}`}
-                  className="w-16 h-20 object-cover rounded-md"
-                />
+                              <img
+                key={idx}
+                src={src}
+                alt={`thumbnail-${idx}`}
+                className="w-16 h-auto object-contain rounded-md"
+              />
               ))}
             </div>
           </div>
@@ -198,7 +198,7 @@ const ProductDetails = () => {
                 <img
                   src={src}
                   alt={`product-${idx}`}
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-150"
+                  className="w-full h-auto object-contain transition-transform duration-300 ease-in-out group-hover:scale-150"
                   style={{
                     transformOrigin: "center center",
                   }}

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, Trash2, ShoppingCart, Eye, Star } from 'lucide-react';
 import { menProducts, womenProducts, kidsProducts, bestSellers } from '../assets/images';
 import { formatPrice } from '../utils/formatPrice';
 
 const Wishlist = () => {
+  const navigate = useNavigate();
   // Sample wishlist data with images from assets
   const [wishlistItems, setWishlistItems] = useState([
     {
@@ -103,8 +105,7 @@ const Wishlist = () => {
   };
 
   const addToCart = (item) => {
-    console.log('Adding to cart:', item.name);
-    // Here you would typically dispatch to Redux store
+    navigate('/productDetails');
   };
 
   const viewProduct = (item) => {
@@ -113,8 +114,8 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-secondary)] py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className=" bg-[var(--bg-secondary)] py-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">

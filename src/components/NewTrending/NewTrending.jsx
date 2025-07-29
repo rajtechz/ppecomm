@@ -67,9 +67,9 @@ function NewTrending() {
                   style={{ width: "160px" }}
                   className="!w-[200px]"
                 >
-                  <div className="bg-white rounded-xl shadow-sm relative ">
+                  <div className="bg-white rounded-xl shadow-sm relative" style={{ zIndex: 1 }}>
                     {item.label && (
-                      <span className="absolute top-2 left-0 bg-[var(--batchColor-color)] text-white text-[10px] font-semibold px-2 py-1 rounded-tr-lg rounded-br-lg z-10">
+                      <span className="absolute top-2 left-0 bg-[var(--batchColor-color)] text-white text-[10px] font-semibold px-2 py-1 rounded-tr-lg rounded-br-lg" style={{ zIndex: 2 }}>
                         {item.label}
                       </span>
                     )}
@@ -88,10 +88,10 @@ function NewTrending() {
             </Swiper>
 
             {/* Custom Arrows */}
-            <button className="prevBtn absolute left-[-1px] top-3/5 -translate-y-1/1 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+            <button className="prevBtn absolute left-[-1px] top-3/5 -translate-y-1/1 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md" style={{ zIndex: 3 }}>
               <span className="text-black text-xl">←</span>
             </button>
-            <button className="nextBtn absolute right-0 top-3/5 -translate-y-1/1 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+            <button className="nextBtn absolute right-0 top-3/5 -translate-y-1/1 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md" style={{ zIndex: 3 }}>
               <span className="text-black text-xl">→</span>
             </button>
           </div>
